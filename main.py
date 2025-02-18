@@ -2,22 +2,27 @@ from products import Product
 from store import Store
 
 def main():
-    # Step 1: 
+    """
+    Main function to run the Best Buy store program.
+    """
+    # Step 1: Initialize products
     product_list = [
         Product("MacBook Air M2", price=1450, quantity=100),
         Product("Bose QuietComfort Earbuds", price=250, quantity=50),
         Product("Google Pixel 7", price=500, quantity=25)
     ]
 
-    # Step 2: 
+    # Step 2: Initialize store with products
     best_buy = Store(product_list)
 
-    # Step 3: 
+    # Step 3: Start the program
     start(best_buy)
 
 def start(store_obj):
     """
     Provides an interactive menu for the user to interact with the store.
+
+    :param store_obj: The store instance.
     """
     while True:
         print("\n==== Best Buy Store ====")
@@ -25,7 +30,7 @@ def start(store_obj):
         print("2. Show total stock quantity")
         print("3. Make an order")
         print("4. Quit")
-        
+
         choice = input("Enter your choice: ")
 
         if choice == "1":
@@ -44,9 +49,9 @@ def start(store_obj):
                 product_name = input("Enter product name: ")
                 quantity = int(input("Enter quantity: "))
 
-                # Find the product by name
-                product = next((p for p in store_obj.products if p.name == product_name), None)
-                
+                # Find the product using the new method
+                product = store_obj.get_product_by_name(product_name)
+
                 if product:
                     total_cost = store_obj.order([(product, quantity)])
                     print(f"✅ Order successful! Total cost: ${total_cost:.2f}")
@@ -54,11 +59,11 @@ def start(store_obj):
                     print("❌ Product not found! Try again.")
 
             except ValueError as e:
-                print(f"⚠ Error: {e}")
+                print(f"⚠️ Error: {e}")
 
         elif choice == "4":
             # Exit the program
-            print("Exiting... Thank you for shopping at Best Buy!")
+            print("👋 Exiting... Thank you for shopping at Best Buy!")
             break
 
         else:
